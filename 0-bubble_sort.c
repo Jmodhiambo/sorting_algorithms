@@ -13,10 +13,16 @@ void bubble_sort(int *array, size_t size)
 {
 	int temp;
 	size_t i = 0;
+	int swapped;
 
-	while (array && i < size)
+	if (!array || size < 2)
+		return;
+
+	while (i < size - 1)
 	{
 		size_t j = 0;
+
+		swapped = 0;
 
 		while (j < size - 1)
 		{
@@ -25,10 +31,15 @@ void bubble_sort(int *array, size_t size)
 				temp = array[j];
 				array[j] = array[j + 1];
 				array[j + 1] = temp;
+				swapped = 1;
 				print_array(array, size);
 			}
 			j++;
 		}
+
+		/* If no elements were swapped, the array is sorted */
+		if (swapped == 0)
+			break;
 		i++;
 	}
 }
