@@ -2,7 +2,8 @@
 #include <stdlib.h>
 
 /**
- * bubble_sort - sorts an array using bubble sort.
+ * bubble_sort - Sorts an array of integers in an ascending
+ *               order Bubble sort.
  * @array: The array to be sorted.
  * @size: The size of the arrray.
  *
@@ -16,15 +17,19 @@ void bubble_sort(int *array, size_t size)
 	int swapped;
 
 	if (!array || size < 2)
+	{
+		if (size == 1)
+			print_array(array, size);
 		return;
+	}
 
-	while (i < size - 1 - i)
+	while (i < size - 1)
 	{
 		size_t j = 0;
 
 		swapped = 0;
 
-		while (j < size - 1)
+		while (j < size - 1 - i)
 		{
 			if (array[j] > array[j + 1])
 			{
