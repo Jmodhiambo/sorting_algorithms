@@ -33,14 +33,14 @@ void quicksort_helper(int *array, size_t low, size_t high, size_t size)
 		pivot_index = partition(array, low, high, size);
 
 		/* Recursively sort elements before and after partition */
-		if (pivot_index > 0) /* Check to avoid size_t underflow */
+		if (pivot_index > 0) /* Ensure we don’t wrap around with size_t */
 			quicksort_helper(array, low, pivot_index - 1, size);
 		quicksort_helper(array, pivot_index + 1, high, size);
 	}
 }
 
 /**
- * partition - Partitions the array around a pivot using Lomuto partition scheme.
+ * partition - Partitions array around a pivot using Lomuto partition scheme.
  * @array: The array to be partitioned.
  * @low: The starting index of the partition.
  * @high: The ending index of the partition.
@@ -57,28 +57,28 @@ int partition(int *array, size_t low, size_t high, size_t size)
 
 	for (i = low; i < high; i++)
 	{
-		if (array[i] <= pivot)
+		if (array[i] < pivot)
 		{
-			temp = array[i];
-			array[i] = array[j];
-			array[j] = temp;
-
-			/* Print the array after each swap */
-			print_array(array, size);
+			if (j != i)
+			{
+				/* Swap elements and set flag */
+				temp = array[i];
+				array[i] = array[j];
+				array[j] = temp;
+			}
 			j++;
 		}
 	}
 
+	/* Final swap to place pivot in correct position */
 	if (j != high)
 	{
-		/* Place the pivot in its correct position */
 		temp = array[j];
 		array[j] = array[high];
 		array[high] = temp;
-
-		/* Print the array after the final swap */
-		print_array(array, size);
 	}
+
+	print_array(array, size);
 
 	return (j);
 }
