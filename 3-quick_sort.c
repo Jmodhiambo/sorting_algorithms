@@ -33,9 +33,10 @@ void quicksort_helper(int *array, size_t low, size_t high, size_t size)
 		pivot_index = partition(array, low, high, size);
 
 		/* Recursively sort elements before and after partition */
-		if (pivot_index > 0) /* Ensure we don’t wrap around with size_t */
+		if (pivot_index > low) /* Ensure we don’t wrap around with size_t */
 			quicksort_helper(array, low, pivot_index - 1, size);
-		quicksort_helper(array, pivot_index + 1, high, size);
+		if (pivot_index < high)
+			quicksort_helper(array, pivot_index + 1, high, size);
 	}
 }
 
